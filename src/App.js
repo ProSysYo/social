@@ -5,17 +5,17 @@ import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import { Route } from 'react-router-dom';
+import Users from './components/Users/Users';
 
-const App = (props) => {    
+const App = (props) => {
     return (
         <div className="app-wrapper">
             <Header />
             <Navbar />
             <div className='app-wrapper-content'>
-                <Route path='/dialogs'
-                    render={() => <DialogsContainer store={props.store} />} />
-                <Route path='/profile'
-                    render={() => <Profile store={props.store} />} />
+                <Route path='/dialogs' render={() => <DialogsContainer store={props.store} />} />
+                <Route path='/profile' render={() => <Profile store={props.store} />} />
+                <Route path='/users' render={() => <Users />} />
             </div>
         </div>
     );
