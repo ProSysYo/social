@@ -3,14 +3,10 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
 
 let initialState = {
-    users: [
-        // { id: 1, followed: false, fullName: 'Dmitry', status: 'I am Ok!', location: { city: 'Minsk', country: 'Belarus' } },
-        // { id: 2, followed: true, fullName: 'Maxim', status: 'I love Liana', location: { city: 'Yola', country: 'Mari' } },
-        // { id: 3, followed: false, fullName: 'Liana', status: 'I love Maxim', location: { city: 'Yola', country: 'Mari' } }
-    ]
+    users: []
 };
 
-const udersReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case FOLLOW:
             return { 
@@ -33,7 +29,10 @@ const udersReducer = (state = initialState, action) => {
                 })
             }
         case SET_USERS: {
-            return { ...state, users: [ ...state.users, ...action.users ] }
+            return { 
+                ...state, 
+                users: [ ...state.users, ...action.users ] 
+            }
         }
         default:
             return state;
@@ -41,6 +40,6 @@ const udersReducer = (state = initialState, action) => {
 }
 export const followAC = (userId) => ({ type: FOLLOW, userId })
 export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId })
-export const setUersAC = (users) => ({type: SET_USERS, users})
+export const setUsersAC = (users) => ({type: SET_USERS, users})
 
-export default udersReducer;
+export default usersReducer;
