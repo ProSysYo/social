@@ -15,20 +15,26 @@ class UsersContainer extends React.Component {
     componentDidMount() {
         this.props.toggleIsFetching(true);
         //Получаем пользователей
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(responce => {
-            this.props.toggleIsFetching(false);
-            this.props.setUsers(responce.data.items);
-            this.props.setTotalUsersCount(responce.data.totalCount);
-        });
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        })
+            .then(responce => {
+                this.props.toggleIsFetching(false);
+                this.props.setUsers(responce.data.items);
+                this.props.setTotalUsersCount(responce.data.totalCount);
+            });
     }
 
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(responce => {
-            this.props.toggleIsFetching(false);
-            this.props.setUsers(responce.data.items);
-        });
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        })
+            .then(responce => {
+                this.props.toggleIsFetching(false);
+                this.props.setUsers(responce.data.items);
+            });
     }
 
     render() {
@@ -36,7 +42,8 @@ class UsersContainer extends React.Component {
             <>
                 {this.props.isFetching ? <Preloader /> : null}
 
-                <Users totalUsersCount={this.props.totalUsersCount}
+                <Users
+                    totalUsersCount={this.props.totalUsersCount}
                     pageSize={this.props.pageSize}
                     currentPage={this.props.currentPage}
                     onPageChanged={this.onPageChanged}
