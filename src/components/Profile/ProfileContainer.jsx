@@ -5,9 +5,10 @@ import { withRouter } from 'react-router-dom';
 import Profile from './Profile';
 import { getUserProfile } from '../../redux/profile-reducer';
 import { withAuthRedirect } from './../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 class ProfileContainer extends React.Component {
-    
+
     componentDidMount() {
 
         let userId = this.props.match.params.userId;
@@ -20,19 +21,21 @@ class ProfileContainer extends React.Component {
     render() {
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile}/>
+                <Profile {...this.props} profile={this.props.profile} />
             </div>
         )
     }
 
 }
 
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer);//используем hoc
-
 let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile    
+    profile: state.profilePage.profile
 });
 
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
 
-export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);
+
+export default compose(
+    connect(mapStateToProps, { getUserProfile }),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer);
