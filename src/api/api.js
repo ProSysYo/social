@@ -28,10 +28,27 @@ export const usersAPI = {
             });
     },
     getProfile(userId) {
-        return instance.get(`profile/` + userId)      
+        console.warn("Obsolete method. Please profileAPI object")
+        return profileAPI.getProfile(userId)
+    }
+
+}
+
+export const profileAPI = {
+    getProfile(userId) {
+        return instance.get(`profile/` + userId)
             .then(response => {
                 return response.data;
-            });  
+            });
+    },
+    getStatus(userId) {
+        return instance.get(`status` + userId)
+            .then(response => {
+                return response.data;
+            });
+    },
+    updateStatus(status) {
+        return instance.put('status', { status: status });
     }
 }
 
