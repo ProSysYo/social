@@ -3,8 +3,7 @@ import s from './MyPosts.module.css'
 import Post from './Post/Post';
 import AddNewPostForm from './../../Dialogs/AddMessageForm.jsx/AddMessageForm';
 
-const MyPosts = (props) => {
-
+const MyPosts = React.memo((props) => {    
     let postsElements = props.posts.map(p =>
         <Post
             key={p.id}
@@ -27,7 +26,7 @@ const MyPosts = (props) => {
             </div>
         </div>
     )
-}
+});
 
 
 
