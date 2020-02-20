@@ -4,21 +4,18 @@ import Preloader from '../../common/preloader/Preloader';
 //import ProfileStatus from "./ProfileStatus";
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
-const ProfileInfo = (props) => {
-    if (!props.profile) {
+const ProfileInfo = ({profile, status, updateStatus}) => {
+    if (!profile) {
         return <Preloader />
     }
     
     return (
-        <div>
-            {/* <div>
-                <img src="https://www.softrew.ru/wp-content/cache/thumb/75/fb4c03e3eee2d75_810x260.png" alt='' />
-            </div> */}
+        <div>           
             <div className={styles.descriptionBlock}>
-                <img src={props.profile.photos.large} alt=''/>
+                <img src={profile.photos.large} alt=''/>
                 <ProfileStatusWithHooks 
-                    status={props.status}
-                    updateStatus={props.updateStatus}
+                    status={status}
+                    updateStatus={updateStatus}
                 />
             </div>
         </div>

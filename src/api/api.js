@@ -36,31 +36,19 @@ export const usersAPI = {
 
 export const profileAPI = {
     getProfile(userId) {
-        return instance.get(`profile/` + userId)
-            .then(response => {
-                return response.data;
-            });
+        return instance.get(`profile/` + userId)            
     },
     getStatus(userId) {
-        return instance.get(`profile/status/` + userId)
-            .then(response => {
-                return response.data;
-            });
+        return instance.get(`profile/status/` + userId)            
     },
     updateStatus(status) {
-        return instance.put('profile/status', { status: status })
-            .then(response => {
-                return response.data;
-            });
+        return instance.put('profile/status', { status: status })        
     }
 }
 
 export const authAPI = {
     me() {
-        return instance.get(`auth/me`)
-            .then(response => {
-                return response.data;
-            });
+        return instance.get(`auth/me`)            
     },
     login(email, password, rememberMe = false) {
         return instance.post(`auth/login`, { email, password, rememberMe });
