@@ -19,8 +19,8 @@ describe("ProfileStatus component", () => {
     test("after creation <input> shouldn't be displayed", () => {
         const component = create(<ProfileStatus status="it-kamasutra.com" />);
         const root = component.root;        
-        expect( () => {
-            let input = root.findByType("input");
+        expect( () => { 
+            let input = root.findByType("input");// eslint-disable-line     
         }).toThrow();
     });
 

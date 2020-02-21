@@ -1,3 +1,19 @@
-.selectedPage {
-    font-weight: bold;
+.paginator {
+    margin: 10px;
 }
+.pageNumber {
+    margin: 2px;
+    padding: 5px;
+    border: 1px solid grey;
+}
+
+.pageNumber:hover {
+    background: white;    
+    cursor: pointer;
+}
+
+.pageNumber.selectedPage {
+    font-weight: bold;
+    background-color: silver;
+    border-color: black;
+} 
