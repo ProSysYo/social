@@ -3,13 +3,13 @@ import React from 'react'
 class ProfileStatus extends React.Component {
         
     state = {
-        editMode: false
+        editMode: false,
+        status: this.props.status           
     }
 
     activateEditMode = () => {
         this.setState({
-            editMode: true,
-            status: this.props.status    
+            editMode: true             
         })
     }
 
