@@ -1,19 +1,22 @@
 import React from 'react';
+import { compose } from 'redux';
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
+import { Provider, connect } from 'react-redux';
+
 import './App.css';
+
+import store from './redux/redux-store';
+import { initializeApp } from './redux/app-reducer';
+import { withSuspense } from './hoc/withSuspense';
+
 import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
-import { Route, withRouter } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
 import Login from './components/Login/Login';
-import { connect } from 'react-redux';
-import {initializeApp} from './redux/app-reducer';
-import { compose } from 'redux';
 import Preloader from './components/common/preloader/Preloader';
-import store from './redux/redux-store';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
 
 class App extends React.Component {
@@ -24,20 +27,22 @@ class App extends React.Component {
         if (!this.props.initialized) {
             return <Preloader />
         }
-        
+
         return (
             <div className="app-wrapper">
                 <HeaderContainer />
                 <Navbar />
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={() => <DialogsContainer />} />
-                    <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
+                    <Route path='/dialogs'
+                        render={withSuspense(DialogsContainer)} />
+                    <Route path='/profile/:userId?' 
+                        render={withSuspense(ProfileContainer)} />
                     <Route path='/users' render={() => <UsersContainer />} />
                     <Route path='/login' render={() => <Login />} />
                 </div>
             </div>
         );
-    }    
+    }
 }
 
 const mapStateToProps = (state) => ({
@@ -46,7 +51,7 @@ const mapStateToProps = (state) => ({
 
 let AppContainer = compose(
     withRouter,
-    connect(mapStateToProps, {initializeApp})
+    connect(mapStateToProps, { initializeApp })
 )(App);
 
 const SocialApp = (props) => {
@@ -57,6 +62,6 @@ const SocialApp = (props) => {
             </Provider>
         </BrowserRouter>
     )
-    
+
 }
 export default SocialApp;
